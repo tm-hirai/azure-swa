@@ -2,14 +2,21 @@ import { useState } from 'react'
 import logo from './logo.svg'
 import './App.css'
 
+import { useQuery } from 'react-query'
+
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
+
+  const {data} = useQuery('test',()=>fetch("/api/hello").then(res=>res.json()))
+  console.log(data)
+
 
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>Hello Vite + React!</p>
+        {data?.responseMessage}
         <p>
           <button type="button" onClick={() => setCount((count) => count + 1)}>
             count is: {count}
